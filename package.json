@@ -1,0 +1,16 @@
+{
+  "name": "reactive-search",
+  "version": "0.0.1",
+  "description": "Realtime search using React and RxJS",
+  "main": "index.js",
+  "repository": "git@github.com:Magellol/reactive-search.git",
+  "author": "Thomas Lefebvre <thmslbvr@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^15.4.2",
+    "rx": "^4.1.0"
+  },
+  "engines": {
+    "node": "7.5.0"
+  }
+}

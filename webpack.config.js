@@ -8,6 +8,22 @@ const config = {
   output: {
     filename: 'index.js',
     path: resolve('dist'),
+    library: 'ReactiveSearch',
+    libraryTarget: 'umd',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'react'],
+          },
+        }],
+      },
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({

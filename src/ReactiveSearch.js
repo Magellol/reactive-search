@@ -31,9 +31,11 @@ class ReactiveSearch extends Component {
         return request(url);
       })
       .subscribe({
+        // TODO It looks like when the Observable encounters an error it stop sending notifications.
+        // Gotta investigate and see if that's a behaviour we want for a search input.
+        // Can we recover from it?
         next: onResponseHandler,
-        error: onErrorHandler, // TODO It looks like when the Observable encounters an error it stop sending notifications.
-                              // Gotta investigate and see if that's a behaviour we want for a search input...Can we recover from it?
+        error: onErrorHandler,
       });
 
     this.subscription.add(searchSubscription);

@@ -4,7 +4,7 @@ const { resolve } = require('path');
 const environment = process.env.NODE_ENV;
 
 const config = {
-  entry: resolve('src', 'index.js'),
+  entry: resolve('src', 'ReactiveSearch.js'),
   output: {
     filename: 'index.js',
     path: resolve('dist'),

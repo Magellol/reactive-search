@@ -2,11 +2,22 @@ import React, { Component, PropTypes } from 'react';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/operator/throttleTime';
+import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/catch';
 
-import request from './request';
+const propTypes = {
+  classes: PropTypes.arrayOf(PropTypes.string),
+  getUrlToRequest: PropTypes.func.isRequired,
+  onResponse: PropTypes.func.isRequired,
+  onFatalError: PropTypes.func.isRequired,
+  shouldRetryOnError: PropTypes.func,
+};
+
+const defaultProps = {
+  classes: [],
+  shouldRetryOnError: () => false,
+};
 
 class ReactiveSearch extends Component {
   constructor() {
@@ -16,7 +27,12 @@ class ReactiveSearch extends Component {
   }
 
   componentDidMount() {
-    const { getUrlToRequest, onResponseHandler, onErrorHandler } = this.props;
+    const {
+      getUrlToRequest,
+      onResponse,
+      onFatalError,
+      shouldRetryOnError,
+    } = this.props;
 
     this.subscription = this.input$
       .subscribe(inputValue => this.setState({ inputValue }));
@@ -24,18 +40,21 @@ class ReactiveSearch extends Component {
     const searchSubscription = this.input$
       .map(value => value.trim().toLowerCase().replace(/\s\s+/g, ' '))
       .filter(value => value.length)
-      .delay(400)
-      .throttleTime(150)
+      .debounceTime(150)
       .switchMap((searchTerm) => {
         const url = getUrlToRequest(searchTerm);
-        return request(url);
+        return fetch(url);
+      })
+      .catch((error, source) => {
+        if (shouldRetryOnError(error) === true) {
+          return source;
+        }
+
+        throw error;
       })
       .subscribe({
-        // TODO It looks like when the Observable encounters an error it stop sending notifications.
-        // Gotta investigate and see if that's a behaviour we want for a search input.
-        // Can we recover from it?
-        next: onResponseHandler,
-        error: onErrorHandler,
+        next: onResponse,
+        error: onFatalError,
       });
 
     this.subscription.add(searchSubscription);
@@ -56,15 +75,7 @@ class ReactiveSearch extends Component {
   }
 }
 
-ReactiveSearch.propTypes = {
-  classes: PropTypes.arrayOf(PropTypes.string),
-  getUrlToRequest: PropTypes.func.isRequired,
-  onResponseHandler: PropTypes.func.isRequired,
-  onErrorHandler: PropTypes.func.isRequired,
-};
-
-ReactiveSearch.defaultProps = {
-  classes: [],
-};
+ReactiveSearch.propTypes = propTypes;
+ReactiveSearch.defaultProps = defaultProps;
 
 export default ReactiveSearch;

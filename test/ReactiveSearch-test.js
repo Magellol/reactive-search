@@ -106,6 +106,7 @@ describe('<ReactiveSearch />', () => {
     instance.componentDidMount();
     instance.input$.next('new value');
 
+    // TODO Once the debounce time will be set as a prop, we'll be able to lower this down.
     setTimeout(() => {
       const calls = fetchMock.calls();
       expect(calls.unmatched.length).to.be.equal(0);
@@ -139,6 +140,7 @@ describe('<ReactiveSearch />', () => {
     instance.componentDidMount();
     instance.input$.next('new value');
 
+    // TODO use afterEach instead.
     setTimeout(fetchMock.restore, 150);
   });
 
@@ -164,6 +166,7 @@ describe('<ReactiveSearch />', () => {
 
     setTimeout(() => {
       // Gotta send a new event later, so the debounce doesn't ignore it.
+      // TODO Once the debounce time will be set as a prop, we'll be able to lower this down.
       instance.input$.next('success');
     }, 200);
 
@@ -199,6 +202,7 @@ describe('<ReactiveSearch />', () => {
     instance.componentDidMount();
     instance.input$.next('new value');
 
+    // TODO use afterEach instead.
     setTimeout(fetchMock.restore, 150);
   });
 
@@ -219,4 +223,6 @@ describe('<ReactiveSearch />', () => {
 
     expect(input.prop('value')).to.be.equal('hello world');
   });
+
+  it.skip('Should set the inputValue state when receiving values from Obversables', () => {});
 });

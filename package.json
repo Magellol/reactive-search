@@ -35,11 +35,13 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.0",
+    "fetch-mock": "^5.9.4",
     "mocha": "^3.2.0",
     "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
     "rxjs": "^5.2.0",
+    "sinon": "^1.17.7",
     "webpack": "^2.2.1"
   }
 }

@@ -67,6 +67,7 @@ class ReactiveSearch extends Component {
   render() {
     return (
       <input
+        type="text"
         className={this.props.classes.join(' ')}
         value={this.state.inputValue}
         onChange={event => this.input$.next(event.target.value)}

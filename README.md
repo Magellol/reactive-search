@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Magellol/reactive-search.svg?branch=master)](https://travis-ci.org/Magellol/reactive-search)
+
 # Reactive search
 React component allowing you to query some api "as-you-type".
 Out of the box, it takes care of debouncing input events for you, so you don't over query your api.

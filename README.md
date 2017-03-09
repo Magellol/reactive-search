@@ -144,7 +144,8 @@ function fatalErrorHandler(error) {
 ```
 
 ## Disclaimer
-This component doesn't perform any caching whatsoever. Client side/server side caching should be your responsibility.
+- It's a BYOP (bring your own Promise) and BYOF (bring your own fetch) library.
+- This component doesn't perform any caching whatsoever. Client side/server side caching should be your responsibility.
 
 ## Contribute
 Contributions are welcome! Please open issues when you found a bug.

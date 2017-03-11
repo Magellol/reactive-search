@@ -7,6 +7,8 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
 
 const propTypes = {
+  placeholder: PropTypes.string,
+  focus: PropTypes.bool,
   classes: PropTypes.arrayOf(PropTypes.string),
   getUrlToRequest: PropTypes.func.isRequired,
   onResponse: PropTypes.func.isRequired,
@@ -16,6 +18,8 @@ const propTypes = {
 
 const defaultProps = {
   classes: [],
+  focus: false,
+  placeholder: '',
   shouldRetryOnError: () => false,
 };
 
@@ -68,6 +72,8 @@ class ReactiveSearch extends Component {
     return (
       <input
         type="text"
+        placeholder={this.props.placeholder}
+        autoFocus={this.props.focus}
         className={this.props.classes.join(' ')}
         value={this.state.inputValue}
         onChange={event => this.input$.next(event.target.value)}

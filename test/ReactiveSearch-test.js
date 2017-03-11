@@ -38,10 +38,17 @@ describe('<ReactiveSearch />', () => {
   });
 
   it('Should have default props.', () => {
-    const { classes, shouldRetryOnError } = basicInput.instance().props;
+    const {
+      classes,
+      shouldRetryOnError,
+      placeholder,
+      focus,
+    } = basicInput.instance().props;
 
     expect(classes).to.be.deep.equal([]);
     expect(shouldRetryOnError()).to.be.equal(false);
+    expect(placeholder).to.be.equal('');
+    expect(focus).to.be.equal(false);
   });
 
   it('Should have default state.', () => {
@@ -60,6 +67,8 @@ describe('<ReactiveSearch />', () => {
     expect(props.className).to.be.equal('');
     expect(props.value).to.be.equal('');
     expect(props.onChange).to.be.a('function');
+    expect(props.placeholder).to.be.equal('');
+    expect(props.autoFocus).to.be.equal(false);
   });
 
   it('Should have a Subject (observable) as property.', () => {

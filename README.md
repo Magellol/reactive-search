@@ -14,7 +14,8 @@ Out of the box, it takes care of debouncing input events for you, so you don't o
 - [License](#license)
 
 ## Demo
-_I'm working on a demo, hopefully it'll be available soon enough._
+[Check out the demo](http://twobugsonecommit.com/).
+_Please keep in mind that the component doesn't do any caching whatsoever, everything is up to you. In this demo, I've implemented a really basic redis caching to speed things up._
 
 ## Installation
 ```javascript
